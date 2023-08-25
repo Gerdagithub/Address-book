@@ -1549,6 +1549,250 @@ void test_unsuccessfullyDeletingAddressFromNotExistingPos(void)
 
 
 
+void test_unsuccessfullyDeletingAddressFromNegativePos(void)
+
+{
+
+    struct Person *list = 
+
+                         ((void *)0)
+
+                             , *temp;
+
+    int ret = 0;
+
+
+
+    struct Person *expectedPerson1 = &(struct Person) {
+
+        .name = "John",
+
+        .surname = "Doe",
+
+        .email = "john@example.com",
+
+        .number = "123-456-7890",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+    struct Person *expectedPerson2 = &(struct Person) {
+
+        .name = "Jane",
+
+        .surname = "Smith",
+
+        .email = "jane@example.com",
+
+        .number = "987-654-3210",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+
+
+    int expectedRet = 1;
+
+    int expectedSize = 2;
+
+
+
+
+
+
+
+    struct Person *person1 = create_node(expectedPerson1->name, expectedPerson1->surname,
+
+                                         expectedPerson1->email, expectedPerson1->number);
+
+
+
+    struct Person *person2 = create_node(expectedPerson2->name, expectedPerson2->surname,
+
+                                         expectedPerson2->email, expectedPerson2->number);
+
+
+
+
+
+    add_to_the_end_of_the_list(&list, person1);
+
+    add_to_the_end_of_the_list(&list, person2);
+
+
+
+    temp = list;
+
+
+
+
+
+
+
+    ret = delete_addr_at_pos(&list, -1);
+
+
+
+
+
+
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson1, temp);
+
+    temp = temp->next;
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson2, temp);
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)((expectedRet)), (UNITY_INT)((ret)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(685), UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((UNITY_INT)((expectedSize)), (UNITY_INT)((size_of_the_book(list))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(686), UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+void test_unsuccessfullyDeletingAddressFrom0Pos(void)
+
+{
+
+    struct Person *list = 
+
+                         ((void *)0)
+
+                             , *temp;
+
+    int ret = 0;
+
+
+
+    struct Person *expectedPerson1 = &(struct Person) {
+
+        .name = "John",
+
+        .surname = "Doe",
+
+        .email = "john@example.com",
+
+        .number = "123-456-7890",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+    struct Person *expectedPerson2 = &(struct Person) {
+
+        .name = "Jane",
+
+        .surname = "Smith",
+
+        .email = "jane@example.com",
+
+        .number = "987-654-3210",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+
+
+    int expectedRet = 1;
+
+    int expectedSize = 2;
+
+
+
+
+
+
+
+    struct Person *person1 = create_node(expectedPerson1->name, expectedPerson1->surname,
+
+                                         expectedPerson1->email, expectedPerson1->number);
+
+
+
+    struct Person *person2 = create_node(expectedPerson2->name, expectedPerson2->surname,
+
+                                         expectedPerson2->email, expectedPerson2->number);
+
+
+
+
+
+    add_to_the_end_of_the_list(&list, person1);
+
+    add_to_the_end_of_the_list(&list, person2);
+
+
+
+    temp = list;
+
+
+
+
+
+
+
+    ret = delete_addr_at_pos(&list, 0);
+
+
+
+
+
+
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson1, temp);
+
+    temp = temp->next;
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson2, temp);
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)((expectedRet)), (UNITY_INT)((ret)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(736), UNITY_DISPLAY_STYLE_INT);
+
+    UnityAssertEqualNumber((UNITY_INT)((expectedSize)), (UNITY_INT)((size_of_the_book(list))), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(737), UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
 void test_deletingEmptyList(void)
 
 {
@@ -1581,7 +1825,7 @@ void test_deletingEmptyList(void)
 
    ((void *)0)
 
-   ), (UNITY_UINT)(650), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(752), UNITY_DISPLAY_STYLE_INT);
 
 
 
@@ -1633,7 +1877,7 @@ void test_deletingListOf1Element(void)
 
    ((void *)0)
 
-   ), (UNITY_UINT)(672), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(774), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1699,7 +1943,7 @@ void test_deletingFullList(void)
 
    ((void *)0)
 
-   ), (UNITY_UINT)(701), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(803), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -1767,7 +2011,7 @@ void test_successfullyFindingAddressByKeywordName(void)
 
 
 
-    struct Person *actualPerson = find_address_by_keyword(list, "Smith");
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->name);
 
 
 
@@ -1776,6 +2020,304 @@ void test_successfullyFindingAddressByKeywordName(void)
 
 
     TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+
+}
+
+
+
+void test_successfullyFindingAddressByKeywordSurname(void)
+
+{
+
+    struct Person *list = 
+
+                         ((void *)0)
+
+                             ;
+
+
+
+    struct Person *expectedPerson = &(struct Person) {
+
+        .name = "Jane",
+
+        .surname = "Smith",
+
+        .email = "jane@example.com",
+
+        .number = "987-654-3210",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+
+
+
+
+
+
+    struct Person *person1 = create_node("Bob", "Brown", "bob@example.com", "888-888-8888");
+
+
+
+    struct Person *person2 = create_node(expectedPerson->name, expectedPerson->surname,
+
+                                         expectedPerson->email, expectedPerson->number);
+
+
+
+    struct Person *person3 = create_node("Charlie", "Smith", "charlie@example.com", "123-456-7890");
+
+
+
+    add_to_the_end_of_the_list(&list, person1);
+
+    add_to_the_end_of_the_list(&list, person2);
+
+    add_to_the_end_of_the_list(&list, person3);
+
+
+
+
+
+
+
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->surname);
+
+
+
+
+
+
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+
+}
+
+
+
+void test_successfullyFindingAddressByKeywordEmail(void)
+
+{
+
+    struct Person *list = 
+
+                         ((void *)0)
+
+                             ;
+
+
+
+    struct Person *expectedPerson = &(struct Person) {
+
+        .name = "Jane",
+
+        .surname = "Smith",
+
+        .email = "jane@example.com",
+
+        .number = "987-654-3210",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+
+
+
+
+
+
+    struct Person *person1 = create_node("Bob", "Brown", "bob@example.com", "888-888-8888");
+
+
+
+    struct Person *person2 = create_node(expectedPerson->name, expectedPerson->surname,
+
+                                         expectedPerson->email, expectedPerson->number);
+
+
+
+    struct Person *person3 = create_node("Charlie", "Smith", "charlie@example.com", "123-456-7890");
+
+
+
+    add_to_the_end_of_the_list(&list, person1);
+
+    add_to_the_end_of_the_list(&list, person2);
+
+    add_to_the_end_of_the_list(&list, person3);
+
+
+
+
+
+
+
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->email);
+
+
+
+
+
+
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+
+}
+
+
+
+void test_successfullyFindingAddressByKeywordNumber(void)
+
+{
+
+    struct Person *list = 
+
+                         ((void *)0)
+
+                             ;
+
+
+
+    struct Person *expectedPerson = &(struct Person) {
+
+        .name = "Jane",
+
+        .surname = "Smith",
+
+        .email = "jane@example.com",
+
+        .number = "987-654-3210",
+
+        .next = 
+
+               ((void *)0)
+
+    
+
+   };
+
+
+
+
+
+
+
+    struct Person *person1 = create_node("Bob", "Brown", "bob@example.com", "888-888-8888");
+
+
+
+    struct Person *person2 = create_node(expectedPerson->name, expectedPerson->surname,
+
+                                         expectedPerson->email, expectedPerson->number);
+
+
+
+    struct Person *person3 = create_node("Charlie", "Smith", "charlie@example.com", "123-456-7890");
+
+
+
+    add_to_the_end_of_the_list(&list, person1);
+
+    add_to_the_end_of_the_list(&list, person2);
+
+    add_to_the_end_of_the_list(&list, person3);
+
+
+
+
+
+
+
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->number);
+
+
+
+
+
+
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+
+}
+
+
+
+void test_searchingAddressByKeywordInEmptyList(void)
+
+{
+
+    struct Person *list = 
+
+                         ((void *)0)
+
+                             ;
+
+
+
+
+
+
+
+    struct Person *actualPerson = find_address_by_keyword(list, "Bob");
+
+
+
+
+
+
+
+    do {if ((((actualPerson)) == 
+
+   ((void *)0)
+
+   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(952))));}} while(0);
+
+}
+
+
+
+void test_successfullyFindingAddressByKeywordFrom1ElemList(void)
+
+{
+
+    struct Person *list;
+
+    char name[30];
+
+
+
+
+
+    strcpy(name, "Bob");
+
+    list = create_node(name, "Brown", "bob@example.com", "888-888-8888");
+
+
+
+
+
+
+
+    struct Person *actualPerson = find_address_by_keyword(list, name);
+
+
+
+
+
+
+
+    TEST_ASSERT_EQUAL_PERSON(list, actualPerson);
 
 }
 
@@ -1829,7 +2371,7 @@ void test_unsuccessfullyFindingAddressByKeyword(void)
 
    ((void *)0)
 
-   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(758))));}} while(0);
+   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(993))));}} while(0);
 
 }
 
@@ -2103,7 +2645,7 @@ void test_unsuccessfullyFindingAddressByNegativeIndex(void)
 
    ((void *)0)
 
-   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(879))));}} while(0);
+   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(1114))));}} while(0);
 
 }
 
@@ -2157,7 +2699,7 @@ void test_unsuccessfullyFindingAddressByPositiveIndex(void)
 
    ((void *)0)
 
-   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(902))));}} while(0);
+   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(1137))));}} while(0);
 
 }
 
@@ -2211,7 +2753,7 @@ void test_unsuccessfullyFindingAddressByZeroIndex(void)
 
    ((void *)0)
 
-   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(925))));}} while(0);
+   )) {} else {UnityFail( (((" Expected NULL"))), (UNITY_UINT)((UNITY_UINT)((UNITY_UINT)(1160))));}} while(0);
 
 }
 
@@ -2271,7 +2813,7 @@ void test_sizeOfFullBook(void)
 
    ((void *)0)
 
-   ), (UNITY_UINT)(951), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(1186), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -2319,7 +2861,7 @@ void test_sizeOfBookOf1Element(void)
 
    ((void *)0)
 
-   ), (UNITY_UINT)(971), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(1206), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -2361,6 +2903,6 @@ void test_sizeOfEmptyBook(void)
 
    ((void *)0)
 
-   ), (UNITY_UINT)(988), UNITY_DISPLAY_STYLE_INT);
+   ), (UNITY_UINT)(1223), UNITY_DISPLAY_STYLE_INT);
 
 }

@@ -59,68 +59,96 @@
   :line: 587
   :message: ''
   :unity_test_time: 0
-- :test: test_deletingEmptyList
+- :test: test_unsuccessfullyDeletingAddressFromNegativePos
   :line: 638
   :message: ''
   :unity_test_time: 0
+- :test: test_unsuccessfullyDeletingAddressFrom0Pos
+  :line: 689
+  :message: ''
+  :unity_test_time: 0
+- :test: test_deletingEmptyList
+  :line: 740
+  :message: ''
+  :unity_test_time: 0
 - :test: test_deletingListOf1Element
-  :line: 655
+  :line: 757
   :message: ''
   :unity_test_time: 0
 - :test: test_deletingFullList
-  :line: 675
+  :line: 777
   :message: ''
   :unity_test_time: 0
 - :test: test_successfullyFindingAddressByKeywordName
-  :line: 704
+  :line: 806
+  :message: ''
+  :unity_test_time: 0
+- :test: test_successfullyFindingAddressByKeywordSurname
+  :line: 840
+  :message: ''
+  :unity_test_time: 0
+- :test: test_successfullyFindingAddressByKeywordEmail
+  :line: 874
+  :message: ''
+  :unity_test_time: 0
+- :test: test_successfullyFindingAddressByKeywordNumber
+  :line: 908
+  :message: ''
+  :unity_test_time: 0
+- :test: test_searchingAddressByKeywordInEmptyList
+  :line: 942
+  :message: ''
+  :unity_test_time: 0
+- :test: test_successfullyFindingAddressByKeywordFrom1ElemList
+  :line: 955
   :message: ''
   :unity_test_time: 0
 - :test: test_unsuccessfullyFindingAddressByKeyword
-  :line: 738
+  :line: 973
   :message: ''
   :unity_test_time: 0
 - :test: test_successfullyFindingAddressByIndexFromTheMiddle
-  :line: 761
+  :line: 996
   :message: ''
   :unity_test_time: 0
 - :test: test_successfullyFindingAddressByIndexFromTheBeginning
-  :line: 795
+  :line: 1030
   :message: ''
   :unity_test_time: 0
 - :test: test_successfullyFindingAddressByIndexFromTheEnd
-  :line: 827
+  :line: 1062
   :message: ''
   :unity_test_time: 0
 - :test: test_unsuccessfullyFindingAddressByNegativeIndex
-  :line: 859
+  :line: 1094
   :message: ''
   :unity_test_time: 0
 - :test: test_unsuccessfullyFindingAddressByPositiveIndex
-  :line: 882
+  :line: 1117
   :message: ''
   :unity_test_time: 0
 - :test: test_unsuccessfullyFindingAddressByZeroIndex
-  :line: 905
+  :line: 1140
   :message: ''
   :unity_test_time: 0
 - :test: test_sizeOfFullBook
-  :line: 928
+  :line: 1163
   :message: ''
   :unity_test_time: 0
 - :test: test_sizeOfBookOf1Element
-  :line: 954
+  :line: 1189
   :message: ''
   :unity_test_time: 0
 - :test: test_sizeOfEmptyBook
-  :line: 975
+  :line: 1210
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 28
-  :passed: 28
+  :total: 35
+  :passed: 35
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0021219009977357928
+:time: 0.003247895001550205

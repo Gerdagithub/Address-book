@@ -635,6 +635,108 @@ void test_unsuccessfullyDeletingAddressFromNotExistingPos(void)
     TEST_ASSERT_EQUAL_INT(expectedSize, size_of_the_book(list));
 }
 
+void test_unsuccessfullyDeletingAddressFromNegativePos(void)
+{
+    struct Person *list = NULL, *temp;
+    int ret = 0;
+
+    struct Person *expectedPerson1 = &(struct Person) {
+        .name = "John",
+        .surname = "Doe",
+        .email = "john@example.com",
+        .number = "123-456-7890",
+        .next = NULL
+    };
+    struct Person *expectedPerson2 = &(struct Person) {
+        .name = "Jane",
+        .surname = "Smith",
+        .email = "jane@example.com",
+        .number = "987-654-3210",
+        .next = NULL
+    };
+
+    int expectedRet = 1;
+    int expectedSize = 2;
+    
+    // Arrange
+
+    struct Person *person1 = create_node(expectedPerson1->name, expectedPerson1->surname,
+                                         expectedPerson1->email, expectedPerson1->number);
+
+    struct Person *person2 = create_node(expectedPerson2->name, expectedPerson2->surname,
+                                         expectedPerson2->email, expectedPerson2->number);
+                                         
+
+    add_to_the_end_of_the_list(&list, person1);
+    add_to_the_end_of_the_list(&list, person2);
+
+    temp = list;
+
+    // Act
+
+    ret = delete_addr_at_pos(&list, -1);
+
+    // Assert
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson1, temp);
+    temp = temp->next;
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson2, temp);
+
+    TEST_ASSERT_EQUAL_INT(expectedRet, ret);
+    TEST_ASSERT_EQUAL_INT(expectedSize, size_of_the_book(list));
+}
+
+void test_unsuccessfullyDeletingAddressFrom0Pos(void)
+{
+    struct Person *list = NULL, *temp;
+    int ret = 0;
+
+    struct Person *expectedPerson1 = &(struct Person) {
+        .name = "John",
+        .surname = "Doe",
+        .email = "john@example.com",
+        .number = "123-456-7890",
+        .next = NULL
+    };
+    struct Person *expectedPerson2 = &(struct Person) {
+        .name = "Jane",
+        .surname = "Smith",
+        .email = "jane@example.com",
+        .number = "987-654-3210",
+        .next = NULL
+    };
+
+    int expectedRet = 1;
+    int expectedSize = 2;
+    
+    // Arrange
+
+    struct Person *person1 = create_node(expectedPerson1->name, expectedPerson1->surname,
+                                         expectedPerson1->email, expectedPerson1->number);
+
+    struct Person *person2 = create_node(expectedPerson2->name, expectedPerson2->surname,
+                                         expectedPerson2->email, expectedPerson2->number);
+                                         
+
+    add_to_the_end_of_the_list(&list, person1);
+    add_to_the_end_of_the_list(&list, person2);
+
+    temp = list;
+
+    // Act
+
+    ret = delete_addr_at_pos(&list, 0);
+
+    // Assert
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson1, temp);
+    temp = temp->next;
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson2, temp);
+
+    TEST_ASSERT_EQUAL_INT(expectedRet, ret);
+    TEST_ASSERT_EQUAL_INT(expectedSize, size_of_the_book(list));
+}
+
 void test_deletingEmptyList(void)
 {
     struct Person *list = NULL;
@@ -728,11 +830,144 @@ void test_successfullyFindingAddressByKeywordName(void)
 
     // Act
 
-    struct Person *actualPerson = find_address_by_keyword(list, "Smith");
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->name);
 
     // Assert
 
     TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+}
+
+void test_successfullyFindingAddressByKeywordSurname(void)
+{
+    struct Person *list = NULL;
+
+    struct Person *expectedPerson = &(struct Person) {
+        .name = "Jane",
+        .surname = "Smith",
+        .email = "jane@example.com",
+        .number = "987-654-3210",
+        .next = NULL
+    };
+
+    // Arrange
+
+    struct Person *person1 = create_node("Bob", "Brown", "bob@example.com", "888-888-8888");
+
+    struct Person *person2 = create_node(expectedPerson->name, expectedPerson->surname, 
+                                         expectedPerson->email, expectedPerson->number);
+
+    struct Person *person3 = create_node("Charlie", "Smith", "charlie@example.com", "123-456-7890");
+
+    add_to_the_end_of_the_list(&list, person1);
+    add_to_the_end_of_the_list(&list, person2);
+    add_to_the_end_of_the_list(&list, person3);
+
+    // Act
+
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->surname);
+
+    // Assert
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+}
+
+void test_successfullyFindingAddressByKeywordEmail(void)
+{
+    struct Person *list = NULL;
+
+    struct Person *expectedPerson = &(struct Person) {
+        .name = "Jane",
+        .surname = "Smith",
+        .email = "jane@example.com",
+        .number = "987-654-3210",
+        .next = NULL
+    };
+
+    // Arrange
+
+    struct Person *person1 = create_node("Bob", "Brown", "bob@example.com", "888-888-8888");
+
+    struct Person *person2 = create_node(expectedPerson->name, expectedPerson->surname, 
+                                         expectedPerson->email, expectedPerson->number);
+
+    struct Person *person3 = create_node("Charlie", "Smith", "charlie@example.com", "123-456-7890");
+
+    add_to_the_end_of_the_list(&list, person1);
+    add_to_the_end_of_the_list(&list, person2);
+    add_to_the_end_of_the_list(&list, person3);
+
+    // Act
+
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->email);
+
+    // Assert
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+}
+
+void test_successfullyFindingAddressByKeywordNumber(void)
+{
+    struct Person *list = NULL;
+
+    struct Person *expectedPerson = &(struct Person) {
+        .name = "Jane",
+        .surname = "Smith",
+        .email = "jane@example.com",
+        .number = "987-654-3210",
+        .next = NULL
+    };
+
+    // Arrange
+
+    struct Person *person1 = create_node("Bob", "Brown", "bob@example.com", "888-888-8888");
+
+    struct Person *person2 = create_node(expectedPerson->name, expectedPerson->surname, 
+                                         expectedPerson->email, expectedPerson->number);
+
+    struct Person *person3 = create_node("Charlie", "Smith", "charlie@example.com", "123-456-7890");
+
+    add_to_the_end_of_the_list(&list, person1);
+    add_to_the_end_of_the_list(&list, person2);
+    add_to_the_end_of_the_list(&list, person3);
+
+    // Act
+
+    struct Person *actualPerson = find_address_by_keyword(list, expectedPerson->number);
+
+    // Assert
+
+    TEST_ASSERT_EQUAL_PERSON(expectedPerson, actualPerson);
+}
+
+void test_searchingAddressByKeywordInEmptyList(void)
+{
+    struct Person *list = NULL;
+
+    // Act
+
+    struct Person *actualPerson = find_address_by_keyword(list, "Bob");
+
+    // Assert
+
+    TEST_ASSERT_NULL(actualPerson);
+}
+
+void test_successfullyFindingAddressByKeywordFrom1ElemList(void)
+{
+    struct Person *list;
+    char name[30];
+    // Arrange
+
+    strcpy(name, "Bob");
+    list = create_node(name, "Brown", "bob@example.com", "888-888-8888");
+
+    // Act
+
+    struct Person *actualPerson = find_address_by_keyword(list, name);
+
+    // Assert
+
+    TEST_ASSERT_EQUAL_PERSON(list, actualPerson);
 }
 
 void test_unsuccessfullyFindingAddressByKeyword(void)
